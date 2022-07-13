@@ -15,9 +15,10 @@ public class HrGetRequests {
         RestAssured.baseURI = "http://3.93.10.240:1000/ords/hr";
 
     }
+
     @DisplayName("GET request to /regions")
     @Test
-    public void test1(){
+    public void test1() {
 
         Response response = RestAssured.get("/regions");
 
@@ -26,14 +27,20 @@ public class HrGetRequests {
 
     }
     /*
-    * Given accept type is application/json
-    * When user sends get request to /regions/2
-    * Then response status code must be 200
-    * and content type equals to application/json
-    * and response body contains Americas
-    * */
+     * Given accept type is application/json
+     * When user sends get request to /regions/2
+     * Then response status code must be 200
+     * and content type equals to application/json
+     * and response body contains Americas
+     * */
 
 
+    @DisplayName("GET request to /regions/2")
+    @Test
+    public void test2() {
+        Response response = RestAssured.get("/regions/2");
+
+    }
 
 
 }
