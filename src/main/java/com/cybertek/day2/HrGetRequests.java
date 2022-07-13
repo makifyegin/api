@@ -1,6 +1,7 @@
 package com.cybertek.day2;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -38,7 +39,9 @@ public class HrGetRequests {
     @DisplayName("GET request to /regions/2")
     @Test
     public void test2() {
-        Response response = RestAssured.get("/regions/2");
+     RestAssured.given().accept(ContentType.JSON).
+             when()
+             .get("/regions/2");
 
     }
 
