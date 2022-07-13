@@ -47,6 +47,8 @@ public class HrGetRequests {
         //I checked the status code
         Assertions.assertEquals(200, response.statusCode());
 //I checked the contentType
+
+        response.prettyPrint();
         Assertions.assertEquals("application/json", response.contentType());
 
         Assertions.assertTrue(response.body().asString().contains("Americas"));
