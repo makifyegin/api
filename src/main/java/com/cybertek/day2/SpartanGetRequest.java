@@ -44,7 +44,7 @@ public class SpartanGetRequest {
 
         /*   Given Accept type application/jsn
        When user sends a get  request to api/spartans/3 end point
-       Then status code should be  2000
+       Then status code should be  200
        And Content Type should be application/json
        and json body should contain Fidole
        */
@@ -52,6 +52,18 @@ public class SpartanGetRequest {
     @DisplayName("GET one spartan /api/spartans/3 and verify")
     @Test
     public void test2() {
+
+        Response response = RestAssured.given().accept(ContentType.JSON).
+                when().get(baseUrl + "/api/spartans/3");
+        //Verify status code 200
+        Assertions.assertEquals(200,response.statusCode());
+
+        Assertions.assertEquals(response.contentType(), "application/json");
+
+        //Verify that json body contains Fidole
+
+        Assertions.assertTrue(response.body().asString().contains("Fidole"));
+
 
 
     }
