@@ -3,6 +3,7 @@ package com.cybertek.day2;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ public class HrGetRequests {
     //Before All is an annotation equals to @BeforeClass in testNg, we use with static method name.
     @BeforeAll
     public static void init() {
-//save baseurl inside this vatiable so that we don't need to type each http url.
+//save baseurl inside this variable so that we don't need to type each http url.
         RestAssured.baseURI = "http://3.93.10.240:1000/ords/hr";
 
     }
@@ -39,9 +40,17 @@ public class HrGetRequests {
     @DisplayName("GET request to /regions/2")
     @Test
     public void test2() {
-     RestAssured.given().accept(ContentType.JSON).
-             when()
-             .get("/regions/2");
+        Response response = RestAssured.given().accept(ContentType.JSON).
+                when()
+                .get("/regions/2");
+
+        //I checked the status code
+        Assertions.assertEquals(200, response.statusCode());
+//I checked the contentType
+        Assertions.assertEquals("application/json", response.contentType());
+
+        Assertions.assertTrue(response.body().asString().contains("Americas"));
+
 
     }
 
