@@ -56,7 +56,7 @@ public class SpartanGetRequest {
         Response response = RestAssured.given().accept(ContentType.JSON).
                 when().get(baseUrl + "/api/spartans/3");
         //Verify status code 200
-        Assertions.assertEquals(200,response.statusCode());
+        Assertions.assertEquals(200, response.statusCode());
 
         Assertions.assertEquals(response.contentType(), "application/json");
 
@@ -65,8 +65,19 @@ public class SpartanGetRequest {
         Assertions.assertTrue(response.body().asString().contains("Fidole"));
 
 
-
     }
+
+
+    /*
+    Given no headers provided
+    When users sends GET request to /api/hello
+    Then response status code should be 200
+    And Content type header should be "text/plain;charset=UTF-8"
+    And header should contain date
+    And Content-Length should be 17
+    And body should be "Hello from Sparta"
+
+    * */
 
 
 }
