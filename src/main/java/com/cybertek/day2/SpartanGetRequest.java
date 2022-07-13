@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class SpartanGetRequest {
@@ -40,5 +41,20 @@ public class SpartanGetRequest {
 
 
     }
+
+        /*   Given Accept type application/jsn
+       When user sends a get  request to api/spartans/3 end point
+       Then status code should be  2000
+       And Content Type should be application/json
+       and json body should contain Fidole
+       */
+
+    @DisplayName("GET one spartan /api/spartans/3 and verify")
+    @Test
+    public void test2() {
+
+
+    }
+
 
 }
