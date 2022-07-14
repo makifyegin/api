@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SpartanTestsParameters {
 
@@ -43,10 +45,11 @@ public class SpartanTestsParameters {
                 .when()
                 .get("/api/spartans/{id}");
 
-        Assertions.assertEquals(200,response.contentType());
+        assertEquals(200,response.contentType());
 
-        Assertions.assertEquals("application/json", response.contentType());
+        assertEquals("application/json", response.contentType());
 
+        assertTrue(response.body().asString().contains("Blythe"));
 
 
     }
