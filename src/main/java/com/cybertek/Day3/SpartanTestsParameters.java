@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.requestSpecification;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,12 +25,12 @@ public class SpartanTestsParameters {
     }
 
     /*
-    * Given accept type is Json
-    * And Id parameter value is 5
-    * When user sends GET request to /api/spartans/{id}
-    * Then response status code should be 200
-    * And response content-type: application/json
-    * And "Blythe" should be in response payload*/
+     * Given accept type is Json
+     * And Id parameter value is 5
+     * When user sends GET request to /api/spartans/{id}
+     * Then response status code should be 200
+     * And response content-type: application/json
+     * And "Blythe" should be in response payload*/
 
     @DisplayName("GET  request to /api/spartans/{id} with  ID=5")
     @Test
@@ -45,7 +46,7 @@ public class SpartanTestsParameters {
                 .when()
                 .get("/api/spartans/{id}");
 
-        assertEquals(200,response.contentType());
+        assertEquals(200, response.contentType());
 
         assertEquals("application/json", response.contentType());
 
@@ -54,5 +55,29 @@ public class SpartanTestsParameters {
 
     }
 
+    /*
+     * TASK
+     * Given accept type is JSON
+     * and id parameter value is 500
+     * When user sends GET request to /api/spartans/{id}
+     * Then response status code should be 404
+     * and response content-type: application/json
+     * and "Not Found" message should be in response payload*/
 
+
+    @DisplayName("GET /api/spartans/{id}")
+    @Test
+    public void test2() {
+        Response response = given().accept(ContentType.JSON).and().
+                pathParam("id", 500).
+                when().get("/api/spartans/{id}");
+
+        assertEquals(404,response.statusCode());
+
+        assertEquals("application/json",response.contentType());
+
+        assertTrue(response.body().asString().contains("Not Found"));
+
+
+    }
 }
