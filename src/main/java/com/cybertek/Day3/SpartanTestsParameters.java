@@ -19,12 +19,20 @@ public class SpartanTestsParameters {
 
     }
 
+    /*
+    * Given accept type is Json
+    * And Id parameter value is 5
+    * When user sends GET request to /api/spartans/{id}
+    * Then response status code should be 200
+    * And response content-type: application/json
+    * And "Blythe" should be in response payload*/
+
     @DisplayName("...")
     @Test
     public void test1(String id) {
         Response response = RestAssured.given().
                 when().accept(ContentType.JSON).
-                get("/api/spartan/:" + id);
+                get("/api/spartan/:" + "5");
 
         Assertions.assertEquals(200,response.contentType());
 
