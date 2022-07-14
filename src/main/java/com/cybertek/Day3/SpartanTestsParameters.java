@@ -2,13 +2,14 @@ package com.cybertek.Day3;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.internal.common.assertion.Assertion;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
+
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +20,7 @@ public class SpartanTestsParameters {
     @BeforeAll
     public static void init() {
 //save baseurl inside this variable so that we don't need to type each http url.
-        RestAssured.baseURI = "http://e";
+        RestAssured.baseURI = "http://44.203.152.162:8000";
 
     }
 
@@ -97,18 +98,41 @@ public class SpartanTestsParameters {
     @Test
     public void test3() {
 
-        Response response = given().accept(ContentType.JSON).pathParam("gender", "Female").pathParam("nameContains", "e")
+        Response response = given().log().all().
+                accept(ContentType.JSON).and().
+                queryParam("gender", "Female").and()
 
-                .and().when().get("/api/spartans/search?{gender}&&{female}");
+                .queryParam("nameContains", "e")
 
-        assertEquals(200,response.statusCode());
+                .and().when().get("/api/spartans/search");
 
-        assertEquals("application/json",response.contentType());
+        assertEquals(200, response.statusCode());
+
+        assertEquals("application/json", response.contentType());
 
         assertTrue(response.body().asString().contains("Female") && response.body().asString().contains("Janette"));
 
 
+    }
 
+    @DisplayName("GET request to /api/spartans/search/ with Query Params (MAP)")
+    @Test
+    public void test4() {
+        //create a map and add query parameters
+        Map<String, Object> queryMap = new HashMap<>();
+        queryMap.put("nameContains", "e");
+        queryMap.put("gender", "Female");
+        Response response = given().log().all().accept(ContentType.JSON)
+                .and().queryParams(queryMap)
+                .when().get("/api/spartans/search");
+
+
+        assertEquals(200, response.statusCode());
+
+        assertEquals("application/json", response.contentType());
+
+        assertTrue(response.body().asString().contains("Female") && response.body().asString().contains("Janette"));
 
     }
+
 }
