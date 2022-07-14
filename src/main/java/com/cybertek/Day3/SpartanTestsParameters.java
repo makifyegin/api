@@ -10,8 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
 
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.requestSpecification;
+import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,7 +19,7 @@ public class SpartanTestsParameters {
     @BeforeAll
     public static void init() {
 //save baseurl inside this variable so that we don't need to type each http url.
-        RestAssured.baseURI = "http://44.203.152.162:8000";
+        RestAssured.baseURI = "http://e";
 
     }
 
@@ -52,7 +51,6 @@ public class SpartanTestsParameters {
 
         assertTrue(response.body().asString().contains("Blythe"));
 
-
     }
 
     /*
@@ -64,19 +62,52 @@ public class SpartanTestsParameters {
      * and response content-type: application/json
      * and "Not Found" message should be in response payload*/
 
-
-    @DisplayName("GET /api/spartans/{id}")
+    @DisplayName("GET request /api/spartans/{id} Negative Test")
     @Test
     public void test2() {
-        Response response = given().accept(ContentType.JSON).and().
-                pathParam("id", 500).
+        Response response = given().accept(ContentType.JSON).
+
+                and().pathParam("id", 500).
+
+
                 when().get("/api/spartans/{id}");
 
-        assertEquals(404,response.statusCode());
+
+        assertEquals(404, response.statusCode());
+
+        assertEquals("application/json", response.contentType());
+
+        assertTrue(response.body().asString().contains("Not Found"));
+
+
+
+        /*
+         * Given type is json
+         * And quert parameter values are:
+         * gender| Female
+         * nameContains|e
+         * When user sends GET request to /api/spartans/search
+         * Then response status code should be 200
+         * And response content-type: application/json
+         * And "Female" should be in response payload
+         * And "Janette" should be in response payload*/
+    }
+
+    @DisplayName("GET to /api/spartans/search")
+    @Test
+    public void test3() {
+
+        Response response = given().accept(ContentType.JSON).pathParam("gender", "Female").pathParam("nameContains", "e")
+
+                .and().when().get("/api/spartans/search?{gender}&&{female}");
+
+        assertEquals(200,response.statusCode());
 
         assertEquals("application/json",response.contentType());
 
-        assertTrue(response.body().asString().contains("Not Found"));
+        assertTrue(response.body().asString().contains("Female") && response.body().asString().contains("Janette"));
+
+
 
 
     }
