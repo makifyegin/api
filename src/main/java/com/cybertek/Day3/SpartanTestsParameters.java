@@ -10,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
 
+import static io.restassured.RestAssured.given;
+
 public class SpartanTestsParameters {
 
     @BeforeAll
@@ -27,12 +29,19 @@ public class SpartanTestsParameters {
     * And response content-type: application/json
     * And "Blythe" should be in response payload*/
 
-    @DisplayName("...")
+    @DisplayName("GET  request to /api/spartans/{id} with  ID=5")
     @Test
     public void test1(String id) {
-        Response response = RestAssured.given().
-                when().accept(ContentType.JSON).
-                get("/api/spartan/:" + "5");
+//        Response response = RestAssured.given().
+//                when().accept(ContentType.JSON).
+//                get("/api/spartan/:" + "5");
+//
+//
+
+        Response response = given().accept(ContentType.JSON)
+                .and().pathParam("id", 5)
+                .when()
+                .get("/api/spartans/{id}");
 
         Assertions.assertEquals(200,response.contentType());
 
