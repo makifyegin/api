@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,8 +43,8 @@ public class SpartanTestsWithPath {
                 .and().pathParam("id", 10)
                 .and().when().get("/api/spartans/{id}");
 
-        assertEquals(200,response.statusCode());
-        assertEquals("application/json",response.contentType());
+        assertEquals(200, response.statusCode());
+        assertEquals("application/json", response.contentType());
 
 
         System.out.println(response.path("name").toString());
@@ -57,11 +59,38 @@ public class SpartanTestsWithPath {
 
 
         //assert the value
-        assertEquals(10,id);
-        assertEquals("Lorenza",name);
-        assertEquals("Female",gender);
-        assertEquals(31267235,phone);
+        assertEquals(10, id);
+        assertEquals("Lorenza", name);
+        assertEquals("Female", gender);
+        assertEquals(31267235, phone);
 
+
+    }
+
+    @DisplayName("GET all spartan and navigate with Path()")
+    @Test
+
+    public void test2() {
+        Response response = given().accept(ContentType.JSON)
+                .when().get("/api/spartans");
+        response.prettyPrint();
+
+        int firstId = response.path("id[0]");
+        System.out.println("firstId = " + firstId);
+
+        String name = response.path("name[0]");
+        System.out.println("name = " + name);
+
+        String lastFirstName = response.path("name[-2]");
+        System.out.println("lastFirstName = " + lastFirstName);
+
+        List<String> names = response.path("name");
+        System.out.println(names);
+
+
+        for (String s : names) {
+            System.out.println(s);
+        }
 
 
     }
