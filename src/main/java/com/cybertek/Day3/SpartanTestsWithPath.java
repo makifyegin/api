@@ -41,9 +41,27 @@ public class SpartanTestsWithPath {
                 .and().pathParam("id", 10)
                 .and().when().get("/api/spartans/{id}");
 
-        response.prettyPrint();
-
         assertEquals(200,response.statusCode());
+        assertEquals("application/json",response.contentType());
+
+
+        System.out.println(response.path("name").toString());
+
+        System.out.println(response.path("name").toString());
+        System.out.println(response.path("gender").toString());
+        System.out.println(response.path("phone").toString());
+        int id = response.path("id");
+        String name = response.path("name");
+        String gender = response.path("gender");
+        long phone = response.path("phone");
+
+
+        //assert the value
+        assertEquals(10,id);
+        assertEquals("Lorenza",name);
+        assertEquals("Female",gender);
+        assertEquals(31267235,phone);
+
 
 
     }
