@@ -27,7 +27,7 @@ public class ORDSApiTestWithPath extends HRTestBase {
         System.out.println("response.path(\"hasmore\") = " + response.path("hasmore"));
 
 
-    //print first country id
+        //print first country id
         String firstCountryId = response.path("items[0].country_id");
 
 
@@ -51,10 +51,14 @@ public class ORDSApiTestWithPath extends HRTestBase {
 
         for (Integer regionsId : allRegionsIDs) {
             System.out.println("allRegionsID = " + regionsId);
-            assertEquals(2,regionsId);
+            assertEquals(2, regionsId);
         }
 
+        List<String> allJobIDs = response.path("items.job_id");
 
+        for (String jobID : allJobIDs) {
+            assertEquals("IT_PROG",jobID);
+        }
 
         assertEquals(200, response.statusCode());
 
