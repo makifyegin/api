@@ -1,5 +1,6 @@
 package com.cybertek.Day3;
 
+import com.cybertek.utilities.SpartanTestBase;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -13,14 +14,9 @@ import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SpartanTestsWithPath {
+public class SpartanTestsWithPath extends SpartanTestBase {
 
-    @BeforeAll
-    public static void init() {
-//save baseurl inside this variable so that we don't need to type each http url.
-        RestAssured.baseURI = "http://44.203.152.162:8000";
 
-    }
 
     /*
      Given accept type is json
