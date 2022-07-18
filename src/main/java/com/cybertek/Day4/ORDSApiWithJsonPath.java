@@ -48,8 +48,15 @@ public class ORDSApiWithJsonPath extends HRTestBase {
     @Test
     public void test2() {
         // we added limit query param to get 107 employees.
-        given().queryParams("limit",107)
+        Response response = given().queryParams("limit", 107)
                 .when().get("/employees");
 
+        //get me all email of employees who is working a sIT_PROG
+        JsonPath jsonPath = response.jsonPath();
+
+        List<String> employeeITPro = jsonPath.getList("items.findAll {it.job_id==\"IT_PROG\"}.email");
+
+
+        System.out.println("employeeITPro = " + employeeITPro);
     }
 }
