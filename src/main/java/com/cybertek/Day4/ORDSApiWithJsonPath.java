@@ -58,5 +58,10 @@ public class ORDSApiWithJsonPath extends HRTestBase {
 
 
         System.out.println("employeeITPro = " + employeeITPro);
+
+        //get me first name of employees who is making more than 10000
+
+        List<Object> firstNameMoreThan10000 = jsonPath.getList("items.findAll {it.salary > 10000}.first_name");
+        System.out.println("firstNameMoreThan10000 = " + firstNameMoreThan10000);
     }
 }
