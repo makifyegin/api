@@ -41,6 +41,15 @@ public class ORDSApiWithJsonPath extends HRTestBase {
 
         System.out.println("countryNameForRegionId2 = " + countryNameForRegionId2);
 
+
     }
 
+    @DisplayName("GET requesto / employees with query param")
+    @Test
+    public void test2() {
+        // we added limit query param to get 107 employees.
+        given().queryParams("limit",107)
+                .when().get("/employees");
+
+    }
 }
